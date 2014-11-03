@@ -30,7 +30,7 @@
                 <thead> <!-- groups all the headers -->
                     <tr>
                         <th ng-click="sortBy('title')">Title:</th> <!-- in order to make it more obvious that its clickable, main.css edit -->
-                        <th ng-click="sortBy('releaseDate')">Release Date:</th>
+                        <th ng-click="sortBy('releaseDate')">Release Date:</th> <!-- wrapped the date objects at the bottom of the movie array so that it knows how to sort by data type data rather than a string of date which wouldn't work -->
                         <th ng-click="sortBy('studio')">Studio:</th>
                         <th ng-click="sortBy('grossSales')">Sales:</th>
                         <th ng-click="sortBy('ticketsSold')">Tickets Sold:</th>
@@ -45,7 +45,7 @@
 
 
                         <td>{{movie.title}}</td> <!-- movie is equal to one object in movies array, can pull properties -->
-                        <td>{{movie.releaseDate | date:'shortDate'}}</td>
+                        <td>{{movie.releaseDate | date:'shortDate'}}</td> <!-- short date for a date format -->
                         <td>{{movie.studio}}</td>
                         <td>{{movie.grossSales | currency : '$' : 0}}</td> <!-- how to format to currency? using angular filter, $ for dollar sign, 0 for amount of decimals -->
                         <td>{{movie.ticketsSold | number}}</td>

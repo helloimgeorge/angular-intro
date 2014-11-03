@@ -18,8 +18,41 @@
 
     </head>
     <body>
-        <main class="container">
+        <main class="container" ng-app="MovieApp" ng-controller="MoviesController"> <!-- declare ng-app to movies app and ng controller to movie controller -->
             <h1>Movies from 2014</h1>
+
+            <p><input type="search" class="form-control" ng-model="searchString"
+                      placeholder="search for a title"/></p> <!-- Creates a search type on the current controller -->
+
+            <p>{{filteredMovies.length}} {{filteredMovies.length == 1 ? 'movie' : 'movies'}}</p> <!-- damn, this is a javascript statement saying if movie lenght is 1, name is movie, else call it plural -->
+
+            <table class="table">
+                <thead> <!-- groups all the headers -->
+                    <tr>
+                        <th ng-click="sortBy('title')">Title:</th> <!-- in order to make it more obvious that its clickable, main.css edit -->
+                        <th ng-click="sortBy('releaseDate')">Release Date:</th>
+                        <th ng-click="sortBy('studio')">Studio:</th>
+                        <th ng-click="sortBy('grossSales')">Sales:</th>
+                        <th ng-click="sortBy('ticketsSold')">Tickets Sold:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="movie in filteredMovies = (movies | filter : {title: searchString} | orderBy : sortCol : sortReverse)">
+                           <!-- ng-repeat directive that create a template once per item some temporary variable 'movie' in $scope.movies
+                                adding a filter of the search string will filter based off title to search string
+                                will also order by this sort column
+                                also orderBy : sortCol : sortReverse this allows to toggle between ascending/descending-->
+
+
+                        <td>{{movie.title}}</td> <!-- movie is equal to one object in movies array, can pull properties -->
+                        <td>{{movie.releaseDate | date:'shortDate'}}</td>
+                        <td>{{movie.studio}}</td>
+                        <td>{{movie.grossSales | currency : '$' : 0}}</td> <!-- how to format to currency? using angular filter, $ for dollar sign, 0 for amount of decimals -->
+                        <td>{{movie.ticketsSold | number}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
 
         </main>
 
